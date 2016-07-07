@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import me.naylinaung.padc_myanmarattractions.R;
+import me.naylinaung.padc_myanmarattractions.adapters.AttractionAdapter;
+import me.naylinaung.padc_myanmarattractions.fragments.AttractionFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -28,6 +30,14 @@ public class HomeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        if (savedInstanceState == null) {
+            AttractionFragment fragment = AttractionFragment.newInstance();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_container, fragment)
+                    .commit();
+        }
     }
 
     @Override
