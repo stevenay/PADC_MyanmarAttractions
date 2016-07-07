@@ -11,9 +11,9 @@ import me.naylinaung.padc_myanmarattractions.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class HomeActivityFragment extends Fragment {
+public class AttractionFragment extends Fragment {
 
-    public HomeActivityFragment() {
+    public AttractionFragment() {
     }
 
     @Override
