@@ -1,5 +1,6 @@
 package me.naylinaung.padc_myanmarattractions.fragments;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import me.naylinaung.padc_myanmarattractions.R;
 import me.naylinaung.padc_myanmarattractions.adapters.AttractionAdapter;
 import me.naylinaung.padc_myanmarattractions.data.models.AttractionModel;
+import me.naylinaung.padc_myanmarattractions.data.vos.AttractionVO;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,15 +24,26 @@ import me.naylinaung.padc_myanmarattractions.data.models.AttractionModel;
 public class AttractionFragment extends Fragment {
 
     private AttractionAdapter mAttractionAdapter;
+    private ControllerAttractionItem mAttractionItemController;
 
     public static AttractionFragment newInstance() {
         return new AttractionFragment();
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ControllerAttractionItem) {
+            this.mAttractionItemController = (ControllerAttractionItem) context;
+        } else {
+            throw new RuntimeException("Activity is not implementing required controller for ViewFragment");
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAttractionAdapter = new AttractionAdapter(AttractionModel.getInstance().getAttractionVOList());
+        mAttractionAdapter = new AttractionAdapter(AttractionModel.getInstance().getAttractionVOList(), this.mAttractionItemController);
     }
 
     @Override
@@ -56,5 +70,10 @@ public class AttractionFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public interface ControllerAttractionItem
+    {
+        public void onTapEvent(AttractionVO attraction, ImageView ivAttractionPhoto);
     }
 }

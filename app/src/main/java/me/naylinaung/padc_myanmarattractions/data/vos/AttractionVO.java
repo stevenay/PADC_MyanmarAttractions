@@ -41,4 +41,8 @@ public class AttractionVO {
         mDescription = description;
         mImages = imageName;
     }
+
+    public static String getImagePath() {
+        return "http://www.aungpyaephyo.xyz/myanmar_attractions/";
+    }
 }

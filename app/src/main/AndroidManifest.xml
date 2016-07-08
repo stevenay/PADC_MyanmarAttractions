@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="me.naylinaung.padc_myanmarattractions">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MyanmarAttractionsApp"
         android:allowBackup="true"
@@ -18,6 +20,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.AttractionDetailActivity"
+            android:parentActivityName=".activities.HomeActivity">
         </activity>
     </application>
 

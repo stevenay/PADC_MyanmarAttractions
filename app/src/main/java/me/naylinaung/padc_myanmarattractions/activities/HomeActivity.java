@@ -1,19 +1,26 @@
 package me.naylinaung.padc_myanmarattractions.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import me.naylinaung.padc_myanmarattractions.R;
 import me.naylinaung.padc_myanmarattractions.adapters.AttractionAdapter;
+import me.naylinaung.padc_myanmarattractions.data.vos.AttractionVO;
 import me.naylinaung.padc_myanmarattractions.fragments.AttractionFragment;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements AttractionFragment.ControllerAttractionItem {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +29,12 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         if (savedInstanceState == null) {
             AttractionFragment fragment = AttractionFragment.newInstance();
@@ -60,5 +65,13 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTapEvent(AttractionVO attraction, ImageView ivAttractionPhoto) {
+        Intent intent = AttractionDetailActivity.newIntent(attraction.getTitle());
+        ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                new Pair(ivAttractionPhoto, getString(R.string.event_attraction_photo_shared_transition)));
+        ActivityCompat.startActivity(this, intent, activityOptions.toBundle());
     }
 }

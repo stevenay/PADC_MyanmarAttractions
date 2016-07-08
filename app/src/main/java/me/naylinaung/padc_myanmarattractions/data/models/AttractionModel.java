@@ -21,7 +21,6 @@ import me.naylinaung.padc_myanmarattractions.utils.JsonUtils;
 public class AttractionModel {
 
     private static final String DUMMY_ATTRACTION_LIST = "myanmar_attractions.json";
-    private static final String IMAGE_PATH = "http://www.aungpyaephyo.xyz/myanmar_attractions/";
 
     private static AttractionModel objInstance;
 
@@ -45,8 +44,10 @@ public class AttractionModel {
         try {
             String dummyAttractionList = JsonUtils.getInstance().LoadDummyData(DUMMY_ATTRACTION_LIST);
 
-            Type listType = new TypeToken<List<AttractionVO>>() {
-            }.getType();
+            // Get Data From Online
+            // String onlineData = JsonUtils.getInstance().LoadOnlineData();
+
+            Type listType = new TypeToken<List<AttractionVO>>(){}.getType();
             list = CommonInstances.getGsonInstance().fromJson(dummyAttractionList, listType);
 
         } catch (IOException e) {
@@ -75,9 +76,5 @@ public class AttractionModel {
         }
 
         return null;
-    }
-
-    public static String getImagePath() {
-        return IMAGE_PATH;
     }
 }

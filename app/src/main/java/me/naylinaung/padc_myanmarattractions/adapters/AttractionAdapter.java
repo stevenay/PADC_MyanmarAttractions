@@ -12,6 +12,7 @@ import java.util.List;
 import me.naylinaung.padc_myanmarattractions.MyanmarAttractionsApp;
 import me.naylinaung.padc_myanmarattractions.R;
 import me.naylinaung.padc_myanmarattractions.data.vos.AttractionVO;
+import me.naylinaung.padc_myanmarattractions.fragments.AttractionFragment;
 import me.naylinaung.padc_myanmarattractions.views.holders.AttractionViewHolder;
 
 /**
@@ -21,16 +22,18 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionViewHolder
 
     private LayoutInflater inflator;
     private List<AttractionVO> attractionList;
+    private AttractionFragment.ControllerAttractionItem mController;
 
-    public AttractionAdapter(List<AttractionVO> attractionList) {
+    public AttractionAdapter(List<AttractionVO> attractionList, AttractionFragment.ControllerAttractionItem controller) {
         inflator = LayoutInflater.from(MyanmarAttractionsApp.getContext());
         this.attractionList = attractionList;
+        this.mController = controller;
     }
 
     @Override
     public AttractionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflator.inflate(R.layout.view_item_attraction, parent, false);
-        final AttractionViewHolder viewHolder = new AttractionViewHolder(view);
+        final AttractionViewHolder viewHolder = new AttractionViewHolder(view, this.mController);
         return viewHolder;
     }
 
